@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  /* Define your custom brand colors here */
+  --color-brand-green: #0D5941;
+  --color-brand-dark: #083D2C;
+  --color-brand-gray: #E5E7EB;
+  --color-brand-text: #374151;
+}
+
+body {
+  background-color: var(--color-brand-green); /* Fallback using the new variable */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
