@@ -1,48 +1,56 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setRegistrationData } from '../features/auth/authSlice';
-import { Gift } from 'lucide-react';
+import { updateName, clearError } from '../features/auth/authSlice';
+import { ArrowLeft } from 'lucide-react';
 
 export default function NameScreen() {
   const [name, setName] = useState('');
-  const [showReferral, setShowReferral] = useState(false);
-  const [referralCode, setReferralCode] = useState('');
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.auth);
 
-  const handleNext = () => {
+  // Clear any existing errors when the user starts typing
+  useEffect(() => {
+    if (error) {
+      dispatch(clearError());
+    }
+  }, [name, dispatch]);
+
+  const handleFinish = async () => {
     if (name.trim().length === 0) return;
-    
-    // Save the name to Redux so the next screen can use it
-    dispatch(setRegistrationData({ name: name.trim(), referralCode }));
-    
-    // Navigate to the next step (Email/Password registration)
-    navigate('/register-email');
+
+    const resultAction = await dispatch(updateName(name.trim()));
+
+    if (updateName.fulfilled.match(resultAction)) {
+      navigate('/dashboard');
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex flex-col px-6 pt-12 pb-8 font-sans">
-      
-      {/* Progress Bar */}
-      <div className="flex justify-center mb-8">
+
+      {/* Progress bar — step 2 of 2 (full) */}
+      <div className="flex justify-center mb-8 relative">
+        <button onClick={() => navigate(-1)} className="absolute left-0 -top-2">
+          <ArrowLeft className="w-6 h-6 text-gray-600" />
+        </button>
         <div className="w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
-          {/* Step 1 of 2 progress indicator */}
-          <div className="w-1/3 h-full bg-brand-dark"></div>
+          <div className="w-full h-full bg-brand-dark" />
         </div>
       </div>
 
-      {/* Text Content */}
+      {/* Heading */}
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-3">Hey there!</h1>
         <p className="text-sm text-gray-500 leading-relaxed max-w-xs mx-auto">
-          We're happy that you've taken the first step towards a healthier you. 
-          We need a few details to kickstart your journey.
+          We're happy you've taken the first step towards a healthier you.
+          What should we call you?
         </p>
       </div>
 
-      {/* Input Form */}
+      {/* Input */}
       <div className="mb-4">
         <h2 className="text-lg font-bold text-gray-900 mb-4">What is your name?</h2>
         <input
@@ -50,41 +58,27 @@ export default function NameScreen() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter Your Name"
-          className="w-full bg-white border border-gray-100 rounded-xl px-4 py-4 text-gray-800 outline-none focus:border-brand-green shadow-[0_2px_10px_rgba(0,0,0,0.04)] mb-4 transition-all"
+          className="w-full bg-white border border-gray-100 rounded-xl px-4 py-4 text-gray-800 outline-none focus:border-brand-green shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-all"
         />
-        
-        {!showReferral ? (
-          <button 
-            onClick={() => setShowReferral(true)}
-            className="flex items-center justify-center w-full gap-2 text-brand-dark font-semibold text-sm"
-          >
-            <Gift className="w-4 h-4" /> Have a referral code?
-          </button>
-        ) : (
-          <input
-            type="text"
-            value={referralCode}
-            onChange={(e) => setReferralCode(e.target.value)}
-            placeholder="Enter Referral Code (Optional)"
-            className="w-full bg-white border border-gray-100 rounded-xl px-4 py-4 text-gray-800 outline-none focus:border-brand-green shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-all"
-          />
-        )}
       </div>
 
-      {/* Bottom Action Button */}
+      {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+
+      {/* CTA */}
       <div className="mt-auto">
         <button
-          onClick={handleNext}
-          disabled={name.trim().length === 0}
+          onClick={handleFinish}
+          disabled={name.trim().length === 0 || loading}
           className={`w-full py-4 rounded-xl font-bold text-white transition-colors duration-200 ${
-            name.trim().length > 0 
-              ? 'bg-brand-dark shadow-lg' 
+            name.trim().length > 0 && !loading
+              ? 'bg-brand-dark shadow-lg'
               : 'bg-gray-200 text-gray-400'
           }`}
         >
-          Next
+          {loading ? 'Saving...' : 'Next'}
         </button>
       </div>
+
     </div>
   );
 }

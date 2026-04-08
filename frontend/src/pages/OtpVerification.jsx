@@ -52,7 +52,7 @@ export default function OtpVerification() {
   return (
     <div className="min-h-screen bg-brand-green flex flex-col font-sans">
        <div className="pt-12 pb-6 px-6 flex justify-between text-white text-sm">
-        <button className="">Corporate User?</button>
+        <button onClick={() => navigate('/email-auth')} className="">Corporate User?</button>
         <button className="">Already a User?</button>
       </div>
       <div className="flex justify-center pb-8">

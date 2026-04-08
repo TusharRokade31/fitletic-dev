@@ -26,7 +26,7 @@ export default function PhoneAuth() {
     <div className="min-h-screen bg-brand-green flex flex-col font-sans">
       {/* Header Area */}
       <div className="pt-12 pb-6 px-6 flex justify-between text-white text-sm">
-        <button className="opacity-80">Corporate User?</button>
+        <button onClick={() => navigate('/email-auth')} className="opacity-80">Corporate User?</button>
         <button onClick={() => setIsLogin(!isLogin)} className="">
           {isLogin ? 'New User?' : 'Already a User?'}
         </button>
@@ -81,7 +81,7 @@ export default function PhoneAuth() {
 
         <button 
           // If they are logging in, go to email-auth. If creating account, go to name-step.
-          onClick={() => navigate(isLogin ? '/email-auth' : '/name-step')}
+          onClick={() => navigate('/email-auth')}
           className="w-full py-3.5 bg-white border border-gray-200 rounded-xl font-semibold text-gray-700 flex justify-center items-center gap-2 shadow-sm"
         >
           <Mail className="w-5 h-5" /> Email
