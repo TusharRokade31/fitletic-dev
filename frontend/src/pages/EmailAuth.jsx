@@ -34,8 +34,7 @@ export default function EmailAuth() {
 
       {/* Top bar */}
       <div className="pt-12 pb-6 px-6 flex justify-between text-white text-sm">
-        <button onClick={() => navigate('/email-auth')} className="opacity-80">Corporate User?</button>
-        <button onClick={() => navigate('/auth')} className="opacity-80">Already a User?</button>
+        
       </div>
 
       {/* Logo */}
@@ -92,23 +91,17 @@ export default function EmailAuth() {
             {loading ? 'Creating Account...' : 'Continue'}
           </button>
 
-          <button
-            type="button"
-            onClick={() => navigate('/login')}
-            className="mt-2 text-sm text-brand-dark font-semibold text-center"
-          >
-            Already have an account? Log in
-          </button>
+          <p className="text-center text-xs text-gray-400 mt-auto mb-4">
+          By signing up, I agree to the Terms of Service and<br />
+          Privacy Policy, including usage of Cookies
+        </p>
 
         </form>
 
         <p className="text-center text-xs text-gray-400 mt-auto mb-4">
-          By signing up, I agree to the Terms of Service and<br />
-          Privacy Policy, including usage of Cookies
+         Need help? connect@fetleticfactory.com
         </p>
-        <p className="text-center text-xs text-gray-400">
-          Need help? connect@fetleticfactory.com
-        </p>
+       
 
       </div>
     </div>

@@ -108,7 +108,7 @@ const authSlice = createSlice({
       referralCode: ''
     }
   },
-  reducers: {
+ reducers: {
     setTempPhone: (state, action) => {
       state.tempPhone = action.payload;
     },
@@ -121,13 +121,20 @@ const authSlice = createSlice({
     clearRegistrationData: (state) => {
       state.registrationData = { name: '', referralCode: '' };
     },
-    // 3. Add a logout action to clear Redux and the Cookie
     logout: (state) => {
       Cookies.remove('accessToken');
       state.user = null;
       state.accessToken = null;
       state.isAuthenticated = false;
       state.registrationData = { name: '', referralCode: '' };
+    },
+    // ADD THIS NEW REDUCER:
+    setSocialCredentials: (state, action) => {
+      const { accessToken } = action.payload;
+      state.accessToken = accessToken;
+      state.isAuthenticated = true;
+      // Save token to cookie (expires in 7 days) matching your thunks
+      Cookies.set('accessToken', accessToken, { expires: 7 });
     }
   },
   extraReducers: (builder) => {
@@ -188,5 +195,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setTempPhone, clearError, setRegistrationData, clearRegistrationData, logout } = authSlice.actions;
+export const { setTempPhone, clearError, setRegistrationData, clearRegistrationData, logout, setSocialCredentials } = authSlice.actions;
 export default authSlice.reducer;
