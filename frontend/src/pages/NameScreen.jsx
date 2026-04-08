@@ -16,11 +16,12 @@ export default function NameScreen() {
     if (error) {
       dispatch(clearError());
     }
-  }, [name, dispatch]);
+  }, [name, dispatch, error]);
 
   const handleFinish = async () => {
     if (name.trim().length === 0) return;
 
+    // This calls the exact thunk found in your authSlice.js
     const resultAction = await dispatch(updateName(name.trim()));
 
     if (updateName.fulfilled.match(resultAction)) {
@@ -30,7 +31,6 @@ export default function NameScreen() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex flex-col px-6 pt-12 pb-8 font-sans">
-
       {/* Progress bar — step 2 of 2 (full) */}
       <div className="flex justify-center mb-8 relative">
         <button onClick={() => navigate(-1)} className="absolute left-0 -top-2">
@@ -78,7 +78,6 @@ export default function NameScreen() {
           {loading ? 'Saving...' : 'Next'}
         </button>
       </div>
-
     </div>
   );
 }
