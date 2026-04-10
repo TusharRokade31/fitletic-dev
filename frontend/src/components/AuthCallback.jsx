@@ -24,7 +24,7 @@ export default function AuthCallback() {
 
       // 2. Redirect the user to the protected area of your app
       // Using replace: true prevents them from hitting the 'back' button to this callback route
-      navigate('/', { replace: true }); 
+      navigate('/onboarding/1', { replace: true });
     } else {
       // Handle the case where the callback fails
       navigate('/login?error=social_auth_failed', { replace: true });

@@ -41,11 +41,11 @@ const SINGLE_CONDITIONS = [
 function RadioCircle({ selected }) {
   return (
     <span
-      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
-        selected ? 'border-[#083D2C]' : 'border-gray-300'
+      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+        selected ? 'border-brand-dark' : 'border-gray-300'
       }`}
     >
-      {selected && <span className="w-2.5 h-2.5 rounded-full bg-[#083D2C]" />}
+      {selected && <span className="w-2.5 h-2.5 rounded-full bg-brand-dark" />}
     </span>
   );
 }
@@ -78,8 +78,8 @@ export default function OnboardingStep3() {
         <button onClick={() => navigate(-1)} className="absolute left-0">
           <ArrowLeft className="w-5 h-5 text-gray-500" />
         </button>
-        <div className="w-44 h-[3px] bg-gray-200 rounded-full overflow-hidden">
-          <div className="w-3/4 h-full bg-[#083D2C] rounded-full" />
+        <div className="w-44 h-0.75 bg-gray-200 rounded-full overflow-hidden">
+          <div className="w-3/4 h-full bg-brand-dark rounded-full" />
         </div>
       </div>
 
@@ -93,7 +93,7 @@ export default function OnboardingStep3() {
         onClick={() => dispatch(toggleMedicalCondition('none'))}
         className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-sm font-medium mb-3 transition-all w-auto self-start ${
           isNone
-            ? 'border-[#083D2C] bg-[#083D2C]/5 text-[#083D2C]'
+            ? 'border-brand-dark bg-brand-dark/5 text-brand-dark'
             : 'border-gray-200 bg-white text-gray-700'
         }`}
       >
@@ -114,7 +114,7 @@ export default function OnboardingStep3() {
                   onClick={() => dispatch(toggleMedicalCondition(c.value))}
                   className={`flex items-center justify-between px-3 py-3 rounded-xl border text-sm font-medium transition-all ${
                     isSelected(c.value)
-                      ? 'border-[#083D2C] bg-[#083D2C]/5 text-[#083D2C]'
+                      ? 'border-brand-dark bg-brand-dark/5 text-brand-dark'
                       : 'border-gray-200 bg-white text-gray-700'
                   }`}
                 >
@@ -137,7 +137,7 @@ export default function OnboardingStep3() {
               onClick={() => dispatch(toggleMedicalCondition(val))}
               className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-medium transition-all ${
                 isSelected(val)
-                  ? 'border-[#083D2C] bg-[#083D2C]/5 text-[#083D2C]'
+                  ? 'border-brand-dark bg-brand-dark/5 text-brand-dark'
                   : 'border-gray-200 bg-white text-gray-700'
               }`}
             >
@@ -161,7 +161,7 @@ export default function OnboardingStep3() {
               onClick={() => dispatch(setField({ key: 'foodPreference', value: opt.value }))}
               className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-medium transition-all ${
                 foodPreference === opt.value
-                  ? 'border-[#083D2C] bg-[#083D2C]/5 text-[#083D2C]'
+                  ? 'border-brand-dark bg-brand-dark/5 text-brand-dark'
                   : 'border-gray-200 bg-white text-gray-700'
               }`}
             >
@@ -186,7 +186,7 @@ export default function OnboardingStep3() {
           disabled={!canProceed || loading}
           className={`w-full py-4 rounded-xl font-bold text-sm transition-all duration-200 ${
             canProceed && !loading
-              ? 'bg-[#083D2C] text-white shadow-md'
+              ? 'bg-brand-dark text-white shadow-md'
               : 'bg-gray-200 text-gray-400'
           }`}
         >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { registerWithEmail } from '../features/auth/authSlice';
@@ -12,9 +12,13 @@ export default function EmailAuth() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.auth);
+  const {accessToken, loading, error } = useSelector((state) => state.auth);
 
-  console.log(error)
+
+  useEffect(() => {
+  if (accessToken) navigate('/onboarding/1', { replace: true });
+}, [accessToken]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +47,7 @@ export default function EmailAuth() {
       </div>
 
       {/* Card */}
-      <div className="bg-[#F8F9FA] flex-1 rounded-t-[2rem] p-6 flex flex-col">
+      <div className="bg-[#F8F9FA] flex-1 rounded-t-[1.2rem] p-6 flex flex-col">
 
         <div className="flex items-center justify-center relative mb-8">
           <button onClick={() => navigate(-1)} className="absolute left-0">

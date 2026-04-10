@@ -59,7 +59,7 @@ export default function OtpVerification() {
         <img src="/src/assets/logo.png" alt="Fetletic" className="h-24" />
       </div>
 
-      <div className="bg-[#F8F9FA] flex-1 rounded-t-[2rem] p-6 flex flex-col">
+      <div className="bg-[#F8F9FA] flex-1 rounded-t-[1.5rem] p-6 flex flex-col">
         <div className="flex items-center justify-center relative mb-8">
           <button onClick={() => navigate(-1)} className="absolute left-0">
             <ArrowLeft className="w-6 h-6 text-gray-600" />

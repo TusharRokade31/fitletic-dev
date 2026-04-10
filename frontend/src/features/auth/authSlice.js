@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';           // plain axios for public auth endpoints (no token needed)
-import axiosInstance from './axiosInstance'; // shared instance for authenticated endpoints
+import axios from 'axios';           
+import axiosInstance from './axiosInstance'; 
 import Cookies from 'js-cookie';
 
 const API_URL = 'http://localhost:5000/api/auth';
@@ -19,8 +19,11 @@ export const sendOtp = createAsyncThunk('auth/sendOtp', async ({ phone, countryC
 export const verifyOtp = createAsyncThunk('auth/verifyOtp', async ({ phone, countryCode, otp }, thunkAPI) => {
   try {
     const response = await axios.post(`${API_URL}/otp/verify`, { phone, countryCode, otp });
-    const token = response.data.data.accessToken;
-    Cookies.set('accessToken', token, { expires: 7 });
+    const { accessToken, refreshToken } = response.data.data;
+    
+    if (accessToken) Cookies.set('accessToken', accessToken, { expires: 7 });
+    if (refreshToken) Cookies.set('refreshToken', refreshToken, { expires: 7 }); // Save refresh token
+    
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || 'Invalid OTP');
@@ -36,8 +39,11 @@ export const registerWithEmail = createAsyncThunk(
         password,
         ...(employeeId ? { employeeId } : {}),
       });
-      const token = data.data?.accessToken;
-      if (token) Cookies.set('accessToken', token, { expires: 7 });
+      const { accessToken, refreshToken } = data.data || {};
+      
+      if (accessToken) Cookies.set('accessToken', accessToken, { expires: 7 });
+      if (refreshToken) Cookies.set('refreshToken', refreshToken, { expires: 7 }); // Save refresh token
+      
       return data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message ?? 'Registration failed.');
@@ -48,8 +54,11 @@ export const registerWithEmail = createAsyncThunk(
 export const loginWithEmail = createAsyncThunk('auth/loginEmail', async ({ email, password }, thunkAPI) => {
   try {
     const response = await axios.post(`${API_URL}/login`, { email, password });
-    const token = response.data.data?.accessToken;
-    if (token) Cookies.set('accessToken', token, { expires: 7 });
+    const { accessToken, refreshToken } = response.data.data || {};
+    
+    if (accessToken) Cookies.set('accessToken', accessToken, { expires: 7 });
+    if (refreshToken) Cookies.set('refreshToken', refreshToken, { expires: 7 }); // Save refresh token
+    
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || 'Login failed');
@@ -98,17 +107,23 @@ const authSlice = createSlice({
       state.registrationData = { name: '', referralCode: '' };
     },
     logout: (state) => {
+      // CRITICAL: Clear BOTH tokens so the interceptor properly logs the user out
       Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+      
       state.user = null;
       state.accessToken = null;
       state.isAuthenticated = false;
       state.registrationData = { name: '', referralCode: '' };
     },
     setSocialCredentials: (state, action) => {
-      const { accessToken } = action.payload;
+      const { accessToken, refreshToken } = action.payload;
+      
       state.accessToken = accessToken;
       state.isAuthenticated = true;
+      
       Cookies.set('accessToken', accessToken, { expires: 7 });
+      if (refreshToken) Cookies.set('refreshToken', refreshToken, { expires: 7 });
     }
   },
   extraReducers: (builder) => {

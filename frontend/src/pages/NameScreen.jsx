@@ -25,7 +25,7 @@ export default function NameScreen() {
     const resultAction = await dispatch(updateName(name.trim()));
 
     if (updateName.fulfilled.match(resultAction)) {
-      navigate('/dashboard');
+      navigate('/onboarding/1');
     }
   };
 

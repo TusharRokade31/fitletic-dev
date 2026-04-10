@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { sendOtp, setTempPhone } from '../features/auth/authSlice';
 import SocialButtons from '../components/SocialButtons';
 import { Mail } from 'lucide-react';
-import logo from '../assets/logo.png'; // Ensure you have this image
+import logo from '../assets/logo.png'; 
 
 export default function PhoneAuth() {
   const [phone, setPhone] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { accessToken,loading, error } = useSelector((state) => state.auth);
+
+
+  useEffect(() => {
+  if (accessToken) navigate('/onboarding/1', { replace: true });
+}, [accessToken]);
+  
 
   const handleContinue = async () => {
     if (phone.length < 10) return;
@@ -36,8 +42,8 @@ export default function PhoneAuth() {
       </div>
 
       {/* Bottom Sheet */}
-      <div className="bg-[#F8F9FA] flex-1 rounded-t-[2rem] p-6 flex flex-col">
-        <h2 className="text-xl font-bold text-center text-gray-800 mb-6">
+      <div className="bg-[#F8F9FA] flex-1 rounded-t-[1.2rem] p-6 flex flex-col">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           {isLogin ? 'Welcome Back, Log in to Continue' : "Let's Create Your Account"}
         </h2>
 
@@ -74,9 +80,9 @@ export default function PhoneAuth() {
         </button>
 
         <div className="relative flex py-6 items-center">
-          <div className="flex-grow border-t border-gray-300"></div>
-          <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">or continue with</span>
-          <div className="flex-grow border-t border-gray-300"></div>
+          <div className="grow border-t border-gray-300"></div>
+          <span className="shrink-0 mx-4 text-gray-400 text-sm">or continue with</span>
+          <div className="grow border-t border-gray-300"></div>
         </div>
 
         <button 

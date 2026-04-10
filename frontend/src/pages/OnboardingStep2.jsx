@@ -67,7 +67,7 @@ export default function OnboardingStep2() {
           <ArrowLeft className="w-5 h-5 text-gray-500" />
         </button>
         <div className="w-44 h-[3px] bg-gray-200 rounded-full overflow-hidden">
-          <div className="w-2/4 h-full bg-[#083D2C] rounded-full" />
+          <div className="w-2/4 h-full bg-[#014c38] rounded-full" />
         </div>
       </div>
 
@@ -81,18 +81,18 @@ export default function OnboardingStep2() {
               onClick={() => dispatch(setField({ key: 'goal', value: g.value }))}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 ${
                 goal === g.value
-                  ? 'border-[#083D2C] bg-[#083D2C]/5 text-[#083D2C]'
+                  ? 'border-[#014c38] bg-[#014c38]/5 text-[#014c38]'
                   : 'border-gray-200 bg-white text-gray-700'
               }`}
             >
               <span>{g.label}</span>
               <span
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
-                  goal === g.value ? 'border-[#083D2C]' : 'border-gray-300'
+                  goal === g.value ? 'border-[#014c38]' : 'border-gray-300'
                 }`}
               >
                 {goal === g.value && (
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#083D2C]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#014c38]" />
                 )}
               </span>
             </button>
@@ -110,14 +110,14 @@ export default function OnboardingStep2() {
               onClick={() => dispatch(setField({ key: 'activityLevel', value: a.value }))}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-all duration-200 ${
                 activityLevel === a.value
-                  ? 'border-[#083D2C] bg-[#083D2C]/5'
+                  ? 'border-[#014c38] bg-[#014c38]/5'
                   : 'border-gray-200 bg-white'
               }`}
             >
               <div className="flex items-center gap-3">
                 <span className="text-lg">{a.icon}</span>
                 <div>
-                  <p className={`text-sm font-semibold ${activityLevel === a.value ? 'text-[#083D2C]' : 'text-gray-800'}`}>
+                  <p className={`text-sm font-semibold ${activityLevel === a.value ? 'text-[#014c38]' : 'text-gray-800'}`}>
                     {a.label}
                   </p>
                   <p className="text-xs text-gray-400 mt-0.5">{a.sub}</p>
@@ -125,11 +125,11 @@ export default function OnboardingStep2() {
               </div>
               <span
                 className={`w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors ${
-                  activityLevel === a.value ? 'border-[#083D2C]' : 'border-gray-300'
+                  activityLevel === a.value ? 'border-[#014c38]' : 'border-gray-300'
                 }`}
               >
                 {activityLevel === a.value && (
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#083D2C]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#014c38]" />
                 )}
               </span>
             </button>
@@ -165,7 +165,7 @@ export default function OnboardingStep2() {
                 }
                 className={`px-3 py-1 transition-colors ${
                   targetWeight.unit === u
-                    ? 'bg-[#083D2C] text-white'
+                    ? 'bg-[#014c38] text-white'
                     : 'bg-white text-gray-500'
                 }`}
               >
@@ -190,7 +190,7 @@ export default function OnboardingStep2() {
           disabled={!canProceed || loading}
           className={`w-full py-4 rounded-xl font-bold text-sm transition-all duration-200 ${
             canProceed && !loading
-              ? 'bg-[#083D2C] text-white shadow-md'
+              ? 'bg-[#014c38] text-white shadow-md'
               : 'bg-gray-200 text-gray-400'
           }`}
         >

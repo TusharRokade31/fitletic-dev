@@ -36,7 +36,7 @@ export default function OnboardingStep1() {
           <ArrowLeft className="w-5 h-5 text-gray-500" />
         </button>
         <div className="w-44 h-[3px] bg-gray-200 rounded-full overflow-hidden">
-          <div className="w-1/4 h-full bg-[#083D2C] rounded-full" />
+          <div className="w-1/4 h-full bg-[#014c38] rounded-full" />
         </div>
       </div>
 
@@ -74,7 +74,7 @@ export default function OnboardingStep1() {
               onClick={() => dispatch(setField({ key: 'sex', value: opt.value }))}
               className={`flex-1 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 ${
                 sex === opt.value
-                  ? 'border-[#083D2C] bg-[#083D2C] text-white'
+                  ? 'border-[#014c38] bg-[#014c38] text-white'
                   : 'border-gray-200 bg-white text-gray-700'
               }`}
             >
@@ -121,7 +121,7 @@ export default function OnboardingStep1() {
                 }
                 className={`px-3 py-1 transition-colors ${
                   weight.unit === u
-                    ? 'bg-[#083D2C] text-white'
+                    ? 'bg-[#014c38] text-white'
                     : 'bg-white text-gray-500'
                 }`}
               >
@@ -154,7 +154,7 @@ export default function OnboardingStep1() {
                 }
                 className={`px-3 py-1 transition-colors ${
                   (u === 'ft/in' ? 'ft' : 'cm') === height.unit
-                    ? 'bg-[#083D2C] text-white'
+                    ? 'bg-[#014c38] text-white'
                     : 'bg-white text-gray-500'
                 }`}
               >
@@ -179,7 +179,7 @@ export default function OnboardingStep1() {
           disabled={!canProceed || loading}
           className={`w-full py-4 rounded-xl font-bold text-sm transition-all duration-200 ${
             canProceed && !loading
-              ? 'bg-[#083D2C] text-white shadow-md'
+              ? 'bg-[#014c38] text-white shadow-md'
               : 'bg-gray-200 text-gray-400'
           }`}
         >

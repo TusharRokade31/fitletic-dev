@@ -27,7 +27,7 @@ export default function OnboardingStep4() {
           <ArrowLeft className="w-5 h-5 text-gray-500" />
         </button>
         <div className="w-44 h-[3px] bg-gray-200 rounded-full overflow-hidden">
-          <div className="w-full h-full bg-[#083D2C] rounded-full" />
+          <div className="w-full h-full bg-[#014c38] rounded-full" />
         </div>
       </div>
 
@@ -80,7 +80,7 @@ export default function OnboardingStep4() {
           disabled={loading}
           className={`w-full py-4 rounded-xl font-bold text-sm transition-all duration-200 ${
             !loading
-              ? 'bg-[#083D2C] text-white shadow-md'
+              ? 'bg-[#014c38] text-white shadow-md'
               : 'bg-gray-200 text-gray-400'
           }`}
         >
